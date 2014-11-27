@@ -85,6 +85,42 @@ public class NMap {
         this.visualSpace = new BoundingBox(0, 0, w, h);
     }
     
+    public List<BoundingBox> alternateCut(List<Element> D) {
+        
+        //normaliza input data in the visual Space area
+        normalize(D);
+
+        /*
+         * The direction of the first bisection is decided based on the width 
+         * (R_w) and height (R_h) of R. If R_w > R_h the bisection is horizontal, 
+         * vertical otherwise.
+         */
+        boolean bisection;
+        if (visualSpace.width > visualSpace.height) {
+            bisection = HORIZONTAL;
+        } else {
+            bisection = VERTICAL;
+        }
+
+        // NMap Alternate Cut Aproach
+        return alternateCut(visualSpace, D, bisection);
+    }
+    
+    public List<BoundingBox> equalWeight(List<Element> D) {
+        
+        //normaliza input data in the visual Space area
+        normalize(D);
+        
+        // NMap Equal Weight Aproach
+        return equalWeight(visualSpace, D);
+    }
+    
+    /*
+      |
+      |  PRIVATE METHODS!!!!
+      V
+    */
+    
     /*
      * 
      */
@@ -107,7 +143,7 @@ public class NMap {
             d.y = (((d.y - miny)/(maxy - miny))*(visualSpace.height)) + visualSpace.y;
         }
     }
-
+    
     /*
      * 
      */
@@ -196,30 +232,7 @@ public class NMap {
         return elementsAreas;
     }
 
-    public List<BoundingBox> alternateCut(List<Element> D) {
-        
-        /*
-         * normaliza input data in the visual Space area
-         */
-        normalize(D);
-
-        /*
-         * The direction of the first bisection is decided based on the width 
-         * (R_w) and height (R_h) of R. If R_w > R_h the bisection is horizontal, 
-         * vertical otherwise.
-         */
-        boolean bisection;
-        if (visualSpace.width > visualSpace.height) {
-            bisection = HORIZONTAL;
-        } else {
-            bisection = VERTICAL;
-        }
-
-        /*
-         * NMap Alternate Cut Aproach
-         */
-        return alternateCut(visualSpace, D, bisection);
-    }
+    
 
     /*
      * 
@@ -300,10 +313,5 @@ public class NMap {
         }
 
         return elementsAreas;
-    }
-
-    public List<BoundingBox> equalWeight(List<Element> D) {
-        normalize(D);
-        return equalWeight(visualSpace, D);
     }
 }

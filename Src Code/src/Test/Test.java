@@ -85,33 +85,37 @@ public class Test {
         try {
 
             br = new BufferedReader(new FileReader(csvFile));
+            line = br.readLine(); //Ignore Header
+            
+            //read all data
             while ((line = br.readLine()) != null) {
 
                 String[] cels = line.split(cvsSplitBy);
                 Element d = null;
                 
+                //If CSV does not hava weight column. In this case,
+                //by default, weight = 1
                 if (cels.length == 4) {
                     d = new Element(
-                        Float.parseFloat(cels[1]),
-                        Float.parseFloat(cels[2]),
-                        Integer.parseInt(cels[0]),
-                        Float.parseFloat(cels[3]),
-                        random.nextFloat() //random Weight for each element
+                        Integer.parseInt(cels[0]), // Id
+                        Float.parseFloat(cels[1]), // x
+                        Float.parseFloat(cels[2]), // y
+                        Float.parseFloat(cels[3])  // Class
                     );
                 } else if (cels.length == 5) {
                     d = new Element(
-                        Float.parseFloat(cels[1]),
-                        Float.parseFloat(cels[2]),
-                        Integer.parseInt(cels[0]),
-                        Float.parseFloat(cels[3]),
-                        Float.parseFloat(cels[4])
+                        Integer.parseInt(cels[0]), // Id
+                        Float.parseFloat(cels[1]), // x
+                        Float.parseFloat(cels[2]), // y
+                        Float.parseFloat(cels[3]), // Weight
+                        Float.parseFloat(cels[4])  // Class
                     );
                 } else {
                     System.err.println("Problems while parsing csv file");
                     System.exit(-1);
                 }
                 
-                data.add(d);
+                data.add(d); //append element to list of data
             }
         } catch (FileNotFoundException e) {
             System.err.println("Problems while parsing csv file");
@@ -136,22 +140,23 @@ public class Test {
 
     public static void main(String[] args) {
 
-        String csvFile = "../DataSet/caso03.csv";
+        //Load Configuration File
+        String csvFile = "../Dataset/configuration09.csv";
         List<Element> data = loadCSV(csvFile);
         
+        //Size of the main windows
         int visualSpaceWidth  = 800;
         int visualSpaceHeight = 600;
 
+        //Create NMap
         NMap nmap = new NMap(visualSpaceWidth, visualSpaceHeight);
         
         //NMap Alternate Cut Aproach
         List<BoundingBox> ac = nmap.alternateCut(data);
-        Frame frameAC = new Frame(visualSpaceWidth, visualSpaceHeight, ac, "NMap Alternate Cut");
-        frameAC.setVisible(true);
+        new Frame(visualSpaceWidth, visualSpaceHeight, ac, "NMap Alternate Cut").setVisible(true);
         
         //NMap Equal Weights Aproach
         List<BoundingBox> ew = nmap.equalWeight(data);
-        Frame frameEW = new Frame(visualSpaceWidth, visualSpaceHeight, ew, "NMap Equal Weights");
-        frameEW.setVisible(true);
+        new Frame(visualSpaceWidth, visualSpaceHeight, ew, "NMap Equal Weights").setVisible(true);
     }
 }

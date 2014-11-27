@@ -69,27 +69,27 @@ public class Element extends Point2D.Float {
     private float klass;
     private float weight;
 
-    public Element(float x, float y, int id, float klass, float weight) {
+    public Element(int id, float x, float y, float weight, float klass) {
         super(x, y);
         this.id = id;
         this.klass = klass;
         this.weight = weight;
     }
 
-    public Element(float x, float y, int id, float klass) {
-        this(x, y, id, klass, 1);
+    public Element(int id, float x, float y, float klass) {
+        this(id, x, y, 1, klass);
     }
 
-    public Element(float x, float y, int id) {
-        this(x, y, id, 1, 1);
+    public Element(int id, float x, float y) {
+        this(id, x, y, 1, 1);
     }
 
     public Element(float x, float y) {
-        this(x, y, 1, 1, 1);
+        this(1, x, y, 1, 1);
     }
 
     public Element() {
-        this(0, 0, 1, 1, 1);
+        this(1, 0, 0, 1, 1);
     }
 
     public int getId() {

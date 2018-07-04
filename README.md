@@ -10,7 +10,7 @@ Space-filling techniques seek to use as much as possible the visual space to rep
 GNU GENERAL PUBLIC LICENSE Version 2, June 1991
 
 ##Website
-[NMap website](http://nmap.vicg.icmc.usp.br/) (direct reference)
+[NMap website](http://vicg.icmc.usp.br/vicg/paper/604/nmap-a-novel-neighborhood-preservation-space-filling-algorithm) (direct reference)
 
 [See it in action Here!](http://nmap.vicg.icmc.usp.br/demo)
 
